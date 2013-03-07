@@ -17,7 +17,8 @@ public class Test {
 		 
 		 
 		 ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
-		  searchCriteria.getContinentCode();
+		  searchCriteria.setQ("city");
+		  searchCriteria.setMaxRows(1000);
 		  ToponymSearchResult searchResult=null;
 		try {
 			searchResult = WebService.search(searchCriteria);
@@ -25,11 +26,25 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		int i=0;
 		  for (Toponym toponym : searchResult.getToponyms()) {
+			  i++;
 		     System.out.println(toponym.getName()+" "+ toponym.getCountryName());
 		  }
-
-
+		  System.out.println(i);
+		  searchCriteria.setStartRow(7000);
+		  searchResult=null;
+			try {
+				searchResult = WebService.search(searchCriteria);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			  for (Toponym toponym : searchResult.getToponyms()) {
+				  i++;
+			     System.out.println(toponym.getName()+" "+ toponym.getCountryName());
+			  }
 	}
 
 }
